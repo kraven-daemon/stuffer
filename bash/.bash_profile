@@ -20,8 +20,6 @@ export LC_IDENTIFICATION="$ENCODING"
 
 # BIN?
 if [ -d "$HOME/.local/bin" ]; then PATH="$HOME/.local/bin:$PATH"; fi
-# SCRIPTS?
-if [ -d "$HOME/.local/scripts" ] ; then PATH="$HOME/.local/scripts:$PATH"; fi
 # NIX?
 if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
 # RUST?
@@ -43,7 +41,7 @@ export XDG_CONFIG_DIRS="${XDG_CONFIG_HOME}:/etc/xdg"
 # initd, openrc, runit, s6, 66, dinit might need manual setting
 # XDG_RUNTIME_DIR=...
 
-export STOW_DIR="$HOME/.local/stuff"
+export STOW_DIR="$HOME/.local/stuffer"
 ####################################################################
 
 export TERMINAL='alacritty'
@@ -55,11 +53,6 @@ export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CLICOLOR=1
-
-# general aliases
-if [ -e "$HOME/.aliases" ]; then
-	. "$HOME/.aliases"
-fi
 
 # other stuff
 #export PATH="/opt/lua-language-server/bin:$PATH"

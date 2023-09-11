@@ -1,0 +1,180 @@
+# `man 5 sway`
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $steps 20
+set $term alacritty
+set $menu wofi --show run
+
+default_floating_border normal
+default_border pixel
+
+# outputs name: swaymsg -t get_outputs
+output * bg $HOME/.local/share/backgrounds/frac.jpg fill
+# output HDMI-A-1 resolution 1920x1080 position 1920,0
+
+### Idle configuration
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+##### Input configuration #########
+# man 5 sway-input
+# https://xkbcommon.org/doc/current
+###################################
+# Advances settings - from /usr/share/X11/xkb/...
+# 1- get_codes - ../xkb/keycodes/evdev
+# 2- change_codes - ~/.config/xkb/symbols/ctrl
+# 3- add_rule - ~/.config/xkb/rule/evdev
+
+## laptop touchpad
+# input "2:7:SynPS/2_Synaptics_TouchPad" {
+#     dwt enabled
+#     tap enabled
+#     # natural_scroll enabled
+#     middle_emulation enabled
+# }
+
+## generic keyboard settings
+input type:keyboard {
+    repeat_delay 400
+    repeat_rate 150
+    xkb_layout us,ca
+    xkb_options caps:swapescape,ctrl:swap_rshift_rctrl
+    xkb_switch_layout next
+}
+
+
+### Key bindings launcher
+bindsym $mod+Return exec $term
+bindsym $mod+q kill
+bindsym $mod+p exec $menu
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+bindsym $mod+Shift+z exec menu_session 
+
+# mouse button for dragging.
+floating_modifier $mod normal
+
+
+# move focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+# move window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+# workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# resize
+bindsym $mod+Ctrl+$left resize grow width $steps px
+bindsym $mod+Ctrl+$right resize shrink width $steps px
+bindsym $mod+Ctrl+$up resize grow height $steps px
+bindsym $mod+Ctrl+$down resize shrink height $steps px
+
+# bindsym $ resize grow height 10px
+# bindsym $ resize shrink height 10px
+# bindsym $ resize grow width 10px
+
+# open next window horizontally/vertically
+bindsym $mod+o splith
+bindsym $mod+u splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# Move focus to the parent container
+bindsym $mod+a focus parent
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+## float
+bindsym $mod+Shift+space floating toggle
+# focus floating/tiling area
+bindsym $mod+space focus mode_toggle
+
+
+# Scratchpad/minimized windows bag
+# minimize windows
+bindsym $mod+Shift+minus move scratchpad
+# cycle focus on windows from the bag
+bindsym $mod+minus scratchpad show
+
+
+# Resizing containers:
+#
+mode "RESIZE" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "RESIZE"
+
+# Status Bar:
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    id 1
+    gaps 0 2
+    height 24
+    position bottom
+    status_command i3status
+    colors {
+        #000000 #070B04, #137727, #1B291A, #25AF5F
+        background #070B04
+        statusline #25AF5F
+        separator #00FFFF
+        # --- <border> <background> <text>
+        inactive_workspace #121212 #121212 #5c5c5c
+        focused_workspace #137727 #1B291A #25AF5F
+        binding_mode #000000 #DA466C #000000
+        urgent_workspace #000000 #FF0000 #FFFFFF
+    }
+}
+
+include /etc/sway/config.d/*
