@@ -1,6 +1,5 @@
 # depends: exa,ripgrep,bat,youtube-dl,stow
 
-
 alias rbook="rustup docs --book"
 
 # if [ -x /usr/bin/dircolors ]; then
@@ -12,8 +11,6 @@ alias rbook="rustup docs --book"
 #     alias fgrep='fgrep --color=auto'
 #     alias egrep='egrep --color=auto'
 # fi
-
-
 alias ls='exa'
 alias la='exa -a'
 alias ll='exa -l'
@@ -31,7 +28,6 @@ alias wget='wget -c'
 alias lsusr='cut -d: -f1 /etc/passwd'
 alias pp='echo ${PATH} | sed "s/:/\n/g"'
 alias env='env | sort'
-alias cat='bat --style="plain"'
 
 # youtube download shortcut
 alias yta='youtube-dl -x --audio-quality 0'
@@ -42,4 +38,5 @@ alias decolorise='sed "s/\x1b[[0-9;]\{1,\}m//g"'
 # some debian/ubuntu strange naming convention
 alias bat='batcat'
 alias env='env | sort | bat -p -l sh'
-alias alias='alias | bat -p -l sh'
+
+alias stuff="/usr/bin/git --git-dir=$STOW_DIR/.git --work-tree=$STOW_DIR"

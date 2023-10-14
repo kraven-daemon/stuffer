@@ -1,0 +1,17 @@
+import:
+  - .config/alacritty/fonts.yml
+  - .config/alacritty/colors.yml
+  - .config/alacritty/keys.yml
+window:
+  padding:
+    x: 2
+  dynamic_padding: true
+  decorations: none
+  # Window class (for xserver on linux/BSD):
+  class:
+    instance: Terminal
+    general: Alacritty
+scrolling:
+  history: 10000
+  multiplier: 3
+window_opacity: 0.8

@@ -1,4 +1,9 @@
-# `man 5 sway`
+# As a reminder the [man 5 sway] is separated by availability of commands:
+# 1- only in the config file
+# 2- not in the config file (swaymsg or keybinding)
+# 3- both in file and bindable/swaymsg rpc socket
+
+# variables
 set $mod Mod4
 set $left h
 set $down j
@@ -8,8 +13,29 @@ set $steps 20
 set $term alacritty
 set $menu wofi --show run
 
+set $yellow #ffff00
+
+# config
 default_floating_border normal
-default_border pixel
+default_border pixel 3
+default_floating_border pixel 5
+default_orientation vertical
+focus_follows_mouse no
+gaps inner 4
+smart_borders no_gaps
+smart_gaps on
+title_align center
+#             |          title               |
+#      class  │ border  │ background │ text  │ indicator │ child_border │
+# background  │ n/a     │ #ffffff    │ n/a   │ n/a       │ n/a          │
+client.focused $yellow $yellow #000000 #ff0000 #ffff00
+client.focused_inactive $yellow #ff0000 #ffffff #484e50 #5f676a
+# focused_tab_title │ #333333 │ #5f676a    │ #ffffff │ n/a       │ n/a          │
+# unfocused         │ #333333 │ #222222    │ #888888 │ #292d2e   │ #222222      │
+# urgent            │ #2f343a │ #900000    │ #ffffff │ #900000   │ #900000      │
+# placeholder       │ #000000 │ #0c0c0c    │ #ffffff │ #000000   │ #0c0c0c      │
+
+
 
 # outputs name: swaymsg -t get_outputs
 output * bg $HOME/.local/share/backgrounds/frac.jpg fill
@@ -121,6 +147,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 # Move focus to the parent container
+bindsym $mod+Shift+a focus child
 bindsym $mod+a focus parent
 
 # Make the current focus fullscreen

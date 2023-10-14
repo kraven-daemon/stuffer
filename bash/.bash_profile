@@ -22,6 +22,8 @@ export LC_IDENTIFICATION="$ENCODING"
 if [ -d "$HOME/.local/bin" ]; then PATH="$HOME/.local/bin:$PATH"; fi
 # NIX?
 if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
+# Guix
+export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
 # RUST?
 if [ -d "$HOME/.cargo/bin" ]; then PATH="$HOME/.cargo/bin:$PATH"; fi
 
@@ -61,7 +63,19 @@ export CLICOLOR=1
 #export LUA_CPATH='/usr/lib/lua/5.1/?.so;/usr/lib/lua/5.1/loadall.so;./?.so;/home/kraven/.luarocks/lib/lua/5.1/?.so'
 #export PATH='/home/kraven/.luarocks/bin:/opt/lua-language-server/bin:/home/kraven/.cargo/bin:/home/kraven/.local/scripts:/home/kraven/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl'
 
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+## export PATH="$PNPM_HOME:$PATH"
+
+
+# default umask => /etc/profile
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+GUIX_PROFILE="$HOME/.config/guix/current"
+. "$GUIX_PROFILE/etc/profile"
 
 
