@@ -52,6 +52,8 @@ export VISUAL='bat -p'
 export BROWSER='librewolf'
 export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 
+test -d "$HOME/.local/share/backgrounds" && export WALLPAPERS="$HOME/.local/share/backgrounds"
+
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CLICOLOR=1

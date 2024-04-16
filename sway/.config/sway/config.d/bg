@@ -1,0 +1,8 @@
+# wallpaper path
+# set $wp $WALLPAPERS
+set $wp $HOME/.local/share/backgrounds
+# outputs name: swaymsg -t get_outputs
+# # randomly set a wallpaper should be $WALLPAPER
+output * bg "$wp/$(ls $wp | shuf -n1 | cut -d' ' -f1)" fill
+# output HDMI-A-1 resolution 1920x1080 position 1920,0
+

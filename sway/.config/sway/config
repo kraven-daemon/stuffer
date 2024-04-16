@@ -38,14 +38,14 @@ client.focused_inactive $yellow #ff0000 #ffffff #484e50 #5f676a
 
 
 # outputs name: swaymsg -t get_outputs
-output * bg $HOME/.local/share/backgrounds/frac.jpg fill
+# output * bg $HOME/.local/share/backgrounds/frac.jpg fill
 # output HDMI-A-1 resolution 1920x1080 position 1920,0
 
 ### Idle configuration
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 'swaylock -f -c 550000' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep 'swaylock -f -c 005500'
 
 ##### Input configuration #########
 # man 5 sway-input
@@ -183,25 +183,5 @@ mode "RESIZE" {
 }
 bindsym $mod+r mode "RESIZE"
 
-# Status Bar:
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    id 1
-    gaps 0 2
-    height 24
-    position bottom
-    status_command i3status
-    colors {
-        #000000 #070B04, #137727, #1B291A, #25AF5F
-        background #070B04
-        statusline #25AF5F
-        separator #00FFFF
-        # --- <border> <background> <text>
-        inactive_workspace #121212 #121212 #5c5c5c
-        focused_workspace #137727 #1B291A #25AF5F
-        binding_mode #000000 #DA466C #000000
-        urgent_workspace #000000 #FF0000 #FFFFFF
-    }
-}
-
 include /etc/sway/config.d/*
+include $HOME/.config/sway/config.d/*
